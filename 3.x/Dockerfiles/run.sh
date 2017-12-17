@@ -48,7 +48,7 @@ fi
 #
 # Setup SilverStripe environment
 #
-if [[ ! -f ${DOCUMENT_ROOT}/.env ]]; then
+if [[ ! -f ${DOCUMENT_ROOT}/_ss_environment.php ]]; then
 
     if [[ -z ${SS_ENVIRONMENT_TYPE} ]]; then
         SS_ENVIRONMENT_TYPE=dev
@@ -82,15 +82,17 @@ if [[ ! -f ${DOCUMENT_ROOT}/.env ]]; then
         SS_DEFAULT_ADMIN_PASSWORD=admin
     fi
 
-        echo "<?php" > ${DOCUMENT_ROOT}/_ss_environment.php
-        echo "define('SS_ENVIRONMENT_TYPE','\"${SS_ENVIRONMENT_TYPE}\"')" >> ${DOCUMENT_ROOT}/_ss_environment.php
-        echo "define('SS_DATABASE_CLASS','\"${SS_DATABASE_CLASS}\"')" >> ${DOCUMENT_ROOT}/_ss_environment.php
-        echo "define('SS_DATABASE_SERVER','\"${SS_DATABASE_SERVER}\"')" >> ${DOCUMENT_ROOT}/_ss_environment.php
-        echo "define('SS_DATABASE_NAME','\"${SS_DATABASE_NAME}\"')" >> ${DOCUMENT_ROOT}/_ss_environment.php
-        echo "define('SS_DATABASE_USERNAME','\"${SS_DATABASE_USERNAME}\"')" >> ${DOCUMENT_ROOT}/_ss_environment.php
-        echo "define('SS_DATABASE_PASSWORD','\"${SS_DATABASE_PASSWORD}\"')" >> ${DOCUMENT_ROOT}/_ss_environment.php
-        echo "define('SS_DEFAULT_ADMIN_USERNAME','\"${SS_DEFAULT_ADMIN_USERNAME}\"')" >> ${DOCUMENT_ROOT}/_ss_environment.php
-        echo "define('SS_DEFAULT_ADMIN_PASSWORD','\"${SS_DEFAULT_ADMIN_PASSWORD}\"')" >> ${DOCUMENT_ROOT}/_ss_environment.php
+    cat > ${DOCUMENT_ROOT}/_ss_environment.php << EOL
+<?php
+    define('SS_ENVIRONMENT_TYPE', '${SS_ENVIRONMENT_TYPE}');
+    define('SS_DATABASE_CLASS', '${SS_DATABASE_CLASS}');
+    define('SS_DATABASE_SERVER', '${SS_DATABASE_SERVER}');
+    define('SS_DATABASE_NAME', '${SS_DATABASE_NAME}');
+    define('SS_DATABASE_USERNAME', '${SS_DATABASE_USERNAME}');
+    define('SS_DATABASE_PASSWORD', '${SS_DATABASE_PASSWORD}');
+    define('SS_DEFAULT_ADMIN_USERNAME', '${SS_DEFAULT_ADMIN_USERNAME}');
+    define('SS_DEFAULT_ADMIN_PASSWORD', '${SS_DEFAULT_ADMIN_PASSWORD}');
+EOL
 fi
 
 #
