@@ -8,7 +8,7 @@ services:
   apache:
     depends_on:
       - mariadb
-    image: kalicki2k/alpine-slverstripe:4.0.1
+    image: kalicki2k/alpine-silverstripe:4.0.1
     restart: always
     environment:
       - SS_DATABASE_CLASS=${SS_DATABASE_CLASS}
