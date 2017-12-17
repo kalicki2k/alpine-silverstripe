@@ -1,7 +1,11 @@
 #!/bin/sh
 #
-# Purpose: Installing Silverstripe CMS and starting Apache damon
 # Version: 1.0
+# Purpose:
+#   - Creating required folder and setup error pages for Apache
+#   - Installing SilverStripe CMS and Framework via Composer
+#   - Generating environment file for SilverStripe
+#   - Starting Apache2 damon
 #
 
 CGI_PATH=/var/www/localhost/cgi-bin
@@ -14,31 +18,40 @@ SS_VERSION=4.0.1
 #
 # Checks if required folder exists. If not, it will be created.
 #
-if [[ ! -d ${CGI_PATH} ]]
-then
+if [[ ! -d ${CGI_PATH} ]]; then
     mkdir ${CGI_PATH}
 fi
 
-if [[ ! -d ${DOCUMENT_ROOT} ]]
-then
+if [[ ! -d ${DOCUMENT_ROOT} ]]; then
     mkdir ${DOCUMENT_ROOT}
 fi
 
-if [[ ! -d ${LOGS_PATH} ]]
-then
+if [[ ! -d ${LOGS_PATH} ]]; then
     mkdir ${LOGS_PATH}
 fi
 
-if [[ ! -d ${ERROR_PATH} ]]
-then
+if [[ ! -d ${ERROR_PATH} ]]; then
     cp -r ${ERROR_SKEL_PATH} ${ERROR_PATH}
 fi
 
 #
-# Install silverstripe cms and framework
+# Install SilverStripe cms and framework
 #
-if [ ! "$(ls -A ${DOCUMENT_ROOT})" ]; then
+if [[ ! "$(ls -A ${DOCUMENT_ROOT})" ]]; then
     composer create-project silverstripe/installer ${DOCUMENT_ROOT} ${SS_VERSION}
+fi
+
+#
+# Setup SilverStripe environment
+#
+if [[ ! -f ${DOCUMENT_ROOT}/.env ]]; then
+    echo "SS_DATABASE_CLASS=\"${SS_DATABASE_CLASS}\"" > ${DOCUMENT_ROOT}/.env
+    echo "SS_DATABASE_SERVER=\"${SS_DATABASE_SERVER}\"" >> ${DOCUMENT_ROOT}/.env
+    echo "SS_DATABASE_NAME=\"${SS_DATABASE_NAME}\"" >> ${DOCUMENT_ROOT}/.env
+    echo "SS_DATABASE_USERNAME=\"${SS_DATABASE_USERNAME}\"" >> ${DOCUMENT_ROOT}/.env
+    echo "SS_DATABASE_PASSWORD=\"${SS_DATABASE_PASSWORD}\"" >> ${DOCUMENT_ROOT}/.env
+    echo "SS_DEFAULT_ADMIN_USERNAME=\"${SS_DEFAULT_ADMIN_USERNAME}\"" >> ${DOCUMENT_ROOT}/.env
+    echo "SS_DEFAULT_ADMIN_PASSWORD=\"${SS_DEFAULT_ADMIN_PASSWORD}\"" >> ${DOCUMENT_ROOT}/.env
 fi
 
 #
@@ -48,6 +61,6 @@ fi
 rm -rf /run/apache2/*
 
 #
-# Starting Apache daemon...
+# Starting Apache daemon
 #
 exec /usr/sbin/httpd -D FOREGROUND

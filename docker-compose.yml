@@ -1,0 +1,24 @@
+version: "3"
+services:
+  mariadb:
+    image: kalicki2k/alpine-mariadb:10.1
+    restart: always
+    ports:
+      - 3306:3306
+  apache:
+    depends_on:
+      - mariadb
+    image: kalicki2k/alpine-slverstripe:4.0.1
+    restart: always
+    environment:
+      - SS_DATABASE_CLASS=${SS_DATABASE_CLASS}
+      - SS_DATABASE_SERVER=${SS_DATABASE_SERVER}
+      - SS_DATABASE_NAME=SS_mysite
+      - SS_DATABASE_USERNAME=root
+      - SS_DATABASE_PASSWORD=root
+      - SS_DEFAULT_ADMIN_USERNAME=admin
+      - SS_DEFAULT_ADMIN_PASSWORD=admin
+    ports:
+      - 8080:80
+    volumes:
+      - .:/var/www/localhost
