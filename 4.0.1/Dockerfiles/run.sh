@@ -45,6 +45,35 @@ fi
 # Setup SilverStripe environment
 #
 if [[ ! -f ${DOCUMENT_ROOT}/.env ]]; then
+
+    if [[ -z ${SS_DATABASE_CLASS} ]]; then
+        SS_DATABASE_CLASS=MySQLPDODatabase
+    fi
+
+    if [[ -z ${SS_DATABASE_SERVER} ]]; then
+        SS_DATABASE_SERVER=mariadb
+    fi
+
+    if [[ -z ${SS_DATABASE_NAME} ]]; then
+        SS_DATABASE_NAME=SS_mysite
+    fi
+
+    if [[ -z ${SS_DATABASE_USERNAME} ]]; then
+        SS_DATABASE_USERNAME=root
+    fi
+
+    if [[ -z ${SS_DATABASE_PASSWORD} ]]; then
+        SS_DATABASE_PASSWORD=root
+    fi
+
+    if [[ -z ${SS_DEFAULT_ADMIN_USERNAME} ]]; then
+        SS_DEFAULT_ADMIN_USERNAME=admin
+    fi
+
+    if [[ -z ${SS_DEFAULT_ADMIN_PASSWORD} ]]; then
+        SS_DEFAULT_ADMIN_PASSWORD=admin
+    fi
+
     echo "SS_DATABASE_CLASS=\"${SS_DATABASE_CLASS}\"" > ${DOCUMENT_ROOT}/.env
     echo "SS_DATABASE_SERVER=\"${SS_DATABASE_SERVER}\"" >> ${DOCUMENT_ROOT}/.env
     echo "SS_DATABASE_NAME=\"${SS_DATABASE_NAME}\"" >> ${DOCUMENT_ROOT}/.env
