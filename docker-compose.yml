@@ -12,6 +12,7 @@ services:
     restart: always
     environment:
       - SS_VERSION=4.0.1
+      - SS_ENVIRONMENT_TYPE=dev
       - SS_DATABASE_CLASS=${SS_DATABASE_CLASS}
       - SS_DATABASE_SERVER=${SS_DATABASE_SERVER}
       - SS_DATABASE_NAME=SS_mysite

@@ -50,6 +50,10 @@ fi
 #
 if [[ ! -f ${DOCUMENT_ROOT}/.env ]]; then
 
+    if [[ -z ${SS_ENVIRONMENT_TYPE} ]]; then
+        SS_ENVIRONMENT_TYPE=dev
+    fi
+
     if [[ -z ${SS_DATABASE_CLASS} ]]; then
         SS_DATABASE_CLASS=MySQLPDODatabase
     fi
@@ -78,7 +82,8 @@ if [[ ! -f ${DOCUMENT_ROOT}/.env ]]; then
         SS_DEFAULT_ADMIN_PASSWORD=admin
     fi
 
-    echo "SS_DATABASE_CLASS=\"${SS_DATABASE_CLASS}\"" > ${DOCUMENT_ROOT}/.env
+    echo "SS_ENVIRONMENT_TYPE=\"${SS_ENVIRONMENT_TYPE}\"" > ${DOCUMENT_ROOT}/.env
+    echo "SS_DATABASE_CLASS=\"${SS_DATABASE_CLASS}\"" >> ${DOCUMENT_ROOT}/.env
     echo "SS_DATABASE_SERVER=\"${SS_DATABASE_SERVER}\"" >> ${DOCUMENT_ROOT}/.env
     echo "SS_DATABASE_NAME=\"${SS_DATABASE_NAME}\"" >> ${DOCUMENT_ROOT}/.env
     echo "SS_DATABASE_USERNAME=\"${SS_DATABASE_USERNAME}\"" >> ${DOCUMENT_ROOT}/.env
