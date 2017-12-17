@@ -11,6 +11,7 @@ services:
     image: kalicki2k/alpine-silverstripe:4.0.1
     restart: always
     environment:
+      - SS_VERSION=4.0.1
       - SS_DATABASE_CLASS=${SS_DATABASE_CLASS}
       - SS_DATABASE_SERVER=${SS_DATABASE_SERVER}
       - SS_DATABASE_NAME=SS_mysite

@@ -13,7 +13,6 @@ DOCUMENT_ROOT=/var/www/localhost/htdocs
 ERROR_PATH=/var/www/localhost/error
 ERROR_SKEL_PATH=/var/www/skel/error
 LOGS_PATH=/var/www/localhost/logs
-SS_VERSION=4.0.1
 
 #
 # Checks if required folder exists. If not, it will be created.
@@ -38,6 +37,11 @@ fi
 # Install SilverStripe cms and framework
 #
 if [[ ! "$(ls -A ${DOCUMENT_ROOT})" ]]; then
+
+    if [[ -z ${SS_VERSION} ]]; then
+        SS_VERSION=4.0.1
+    fi
+
     composer create-project silverstripe/installer ${DOCUMENT_ROOT} ${SS_VERSION}
 fi
 
