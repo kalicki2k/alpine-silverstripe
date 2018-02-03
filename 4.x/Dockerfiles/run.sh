@@ -5,7 +5,7 @@
 #   - Creating required folder and setup error pages for Apache
 #   - Installing SilverStripe CMS and Framework via Composer
 #   - Generating environment file for SilverStripe
-#   - Starting Apache2 damon
+#   - Starting Apache damon
 #
 
 CGI_PATH=/var/www/localhost/cgi-bin
